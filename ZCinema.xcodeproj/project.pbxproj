@@ -1,0 +1,15 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+/* Begin PBXBuildFile section */
+/* End PBXBuildFile section */
+/* Begin PBXFileReference section */
+		[PROJECT_ID] /* ZCinema */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZCinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+	};
+	rootObject = [ROOT_ID] /* Project object */;
+}
