@@ -1,15 +1,279 @@
-// !$*UTF8*$!
+// !\$*UTF8*\$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 56;
-	objects = {
+archiveVersion = 1;
+classes = {
+};
+objectVersion = 56;
+objects = {
+
 /* Begin PBXBuildFile section */
+A1B2C3D42B1E2F3000123456 /* ZCinemaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E42B1E2F3000123456 /* ZCinemaApp.swift */; };
+A1B2C3D52B1E2F3000123456 /* ScraperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E52B1E2F3000123456 /* ScraperService.swift */; };
+A1B2C3D62B1E2F3000123456 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E62B1E2F3000123456 /* HomeView.swift */; };
+A1B2C3D72B1E2F3000123456 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C2D3E72B1E2F3000123456 /* PlayerView.swift */; };
 /* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		[PROJECT_ID] /* ZCinema */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZCinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
+B1C2D3E42B1E2F3000123456 /* ZCinemaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCinemaApp.swift; sourceTree = "<group>"; };
+B1C2D3E52B1E2F3000123456 /* ScraperService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScraperService.swift; sourceTree = "<group>"; };
+B1C2D3E62B1E2F3000123456 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/HomeView.swift; sourceTree = "<group>"; };
+B1C2D3E72B1E2F3000123456 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/PlayerView.swift; sourceTree = "<group>"; };
+C1D2E3F42B1E2F3000123456 /* ZCinema.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ZCinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-	};
-	rootObject = [ROOT_ID] /* Project object */;
+
+/* Begin PBXFrameworksBuildPhase section */
+D1E2F3A42B1E2F3000123456 /* Frameworks */ = {
+isa = PBXFrameworksBuildPhase;
+buildActionMask = 2147483647;
+files = (
+);
+runOnlyForDeploymentPostprocessing = 0;
+};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+E1F2A3B42B1E2F3000123456 = {
+isa = PBXGroup;
+children = (
+F1A2B3C42B1E2F3000123456 /* ZCinema */,
+C1D2E3F42B1E2F3000123456 /* Products */,
+);
+sourceTree = "<group>";
+};
+F1A2B3C42B1E2F3000123456 /* ZCinema */ = {
+isa = PBXGroup;
+children = (
+B1C2D3E42B1E2F3000123456 /* ZCinemaApp.swift */,
+B1C2D3E52B1E2F3000123456 /* ScraperService.swift */,
+G1H2I3J42B1E2F3000123456 /* Views */,
+);
+path = ZCinema;
+sourceTree = "<group>";
+};
+G1H2I3J42B1E2F3000123456 /* Views */ = {
+isa = PBXGroup;
+children = (
+B1C2D3E62B1E2F3000123456 /* HomeView.swift */,
+B1C2D3E72B1E2F3000123456 /* PlayerView.swift */,
+);
+path = Views;
+sourceTree = "<group>";
+};
+C1D2E3F42B1E2F3000123456 /* Products */ = {
+isa = PBXGroup;
+children = (
+C1D2E3F42B1E2F3000123456 /* ZCinema.app */,
+);
+name = Products;
+sourceTree = "<group>";
+};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+H1I2J3K42B1E2F3000123456 /* ZCinema */ = {
+isa = PBXNativeTarget;
+buildConfigurationList = I1J2K3L42B1E2F3000123456 /* Build configuration list for PBXNativeTarget "ZCinema" */;
+buildPhases = (
+J1K2L3M42B1E2F3000123456 /* Sources */,
+D1E2F3A42B1E2F3000123456 /* Frameworks */,
+);
+buildRules = (
+);
+dependencies = (
+);
+name = ZCinema;
+productName = ZCinema;
+productReference = C1D2E3F42B1E2F3000123456 /* ZCinema.app */;
+productType = "com.apple.product-type.application";
+};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+K1L2M3N42B1E2F3000123456 /* Project object */ = {
+isa = PBXProject;
+attributes = {
+LastSwiftUpdateCheck = 1500;
+LastUpgradeCheck = 1500;
+TargetAttributes = {
+H1I2J3K42B1E2F3000123456 = {
+CreatedOnToolsVersion = 15.0;
+};
+};
+};
+buildConfigurationList = L1M2N3O42B1E2F3000123456 /* Build configuration list for PBXProject "ZCinema" */;
+compatibilityVersion = "Xcode 14.0";
+developmentRegion = en;
+hasScannedForEncodings = 0;
+knownRegions = (
+en,
+Base,
+);
+mainGroup = E1F2A3B42B1E2F3000123456;
+productRefGroup = C1D2E3F42B1E2F3000123456 /* Products */;
+projectDirPath = "";
+projectRoot = "";
+targets = (
+H1I2J3K42B1E2F3000123456 /* ZCinema */,
+);
+};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+J1K2L3M42B1E2F3000123456 /* Sources */ = {
+isa = PBXSourcesBuildPhase;
+buildActionMask = 2147483647;
+files = (
+A1B2C3D42B1E2F3000123456 /* ZCinemaApp.swift in Sources */,
+A1B2C3D52B1E2F3000123456 /* ScraperService.swift in Sources */,
+A1B2C3D62B1E2F3000123456 /* HomeView.swift in Sources */,
+A1B2C3D72B1E2F3000123456 /* PlayerView.swift in Sources */,
+);
+runOnlyForDeploymentPostprocessing = 0;
+};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+M1N2O3P42B1E2F3000123456 /* Debug */ = {
+isa = XCBuildConfiguration;
+buildSettings = {
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+BUNDLE_LOADER = "$(TEST_HOST)";
+CODE_SIGN_STYLE = Automatic;
+CURRENT_PROJECT_VERSION = 1;
+GENERATE_INFOPLIST_FILE = YES;
+INFOPLIST_KEY_CFBundleDisplayName = ZCinema;
+INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+LD_RUNPATH_SEARCH_PATHS = (
+"$(inherited)",
+"@executable_path/Frameworks",
+);
+MARKETING_VERSION = 1.0;
+PRODUCT_BUNDLE_IDENTIFIER = com.alzng.ZCinema;
+PRODUCT_NAME = "$(TARGET_NAME)";
+SWIFT_EMIT_LOC_STRINGS = YES;
+SWIFT_VERSION = 5.0;
+TARGETED_DEVICE_FAMILY = "1,2";
+};
+name = Debug;
+};
+N1O2P3Q42B1E2F3000123456 /* Release */ = {
+isa = XCBuildConfiguration;
+buildSettings = {
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+CODE_SIGN_STYLE = Automatic;
+CURRENT_PROJECT_VERSION = 1;
+GENERATE_INFOPLIST_FILE = YES;
+INFOPLIST_KEY_CFBundleDisplayName = ZCinema;
+INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+LD_RUNPATH_SEARCH_PATHS = (
+"$(inherited)",
+"@executable_path/Frameworks",
+);
+MARKETING_VERSION = 1.0;
+PRODUCT_BUNDLE_IDENTIFIER = com.alzng.ZCinema;
+PRODUCT_NAME = "$(TARGET_NAME)";
+SWIFT_EMIT_LOC_STRINGS = YES;
+SWIFT_VERSION = 5.0;
+TARGETED_DEVICE_FAMILY = "1,2";
+};
+name = Release;
+};
+O1P2Q3R42B1E2F3000123456 /* Debug */ = {
+isa = XCBuildConfiguration;
+buildSettings = {
+ALWAYS_SEARCH_USER_PATHS = NO;
+CLANG_ANALYZER_NONNULL = YES;
+CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+CLANG_ENABLE_MODULES = YES;
+CLANG_ENABLE_OBJC_ARC = YES;
+CLANG_ENABLE_OBJC_WEAK = YES;
+COPY_PHASE_STRIP = NO;
+DEBUG_INFORMATION_FORMAT = dwarf;
+ENABLE_STRICT_OBJC_MSGSEND = YES;
+ENABLE_TESTABILITY = YES;
+GCC_C_LANGUAGE_STANDARD = gnu11;
+GCC_DYNAMIC_NO_PIC = NO;
+GCC_NO_COMMON_BLOCKS = YES;
+GCC_OPTIMIZATION_LEVEL = 0;
+GCC_PREPROCESSOR_DEFINITIONS = (
+"DEBUG=1",
+"$(inherited)",
+);
+GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+GCC_WARN_UNDECLARED_SELECTOR = YES;
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+GCC_WARN_UNUSED_FUNCTION = YES;
+GCC_WARN_UNUSED_VARIABLE = YES;
+IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+MTL_FAST_MATH = YES;
+ONLY_ACTIVE_ARCH = YES;
+SDKROOT = iphoneos;
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+};
+name = Debug;
+};
+P1Q2R3S42B1E2F3000123456 /* Release */ = {
+isa = XCBuildConfiguration;
+buildSettings = {
+ALWAYS_SEARCH_USER_PATHS = NO;
+CLANG_ANALYZER_NONNULL = YES;
+CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+CLANG_ENABLE_MODULES = YES;
+CLANG_ENABLE_OBJC_ARC = YES;
+CLANG_ENABLE_OBJC_WEAK = YES;
+COPY_PHASE_STRIP = NO;
+DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+ENABLE_NS_ASSERTIONS = NO;
+ENABLE_STRICT_OBJC_MSGSEND = YES;
+GCC_C_LANGUAGE_STANDARD = gnu11;
+GCC_NO_COMMON_BLOCKS = YES;
+GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+GCC_WARN_UNDECLARED_SELECTOR = YES;
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+GCC_WARN_UNUSED_FUNCTION = YES;
+GCC_WARN_UNUSED_VARIABLE = YES;
+IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+MTL_ENABLE_DEBUG_INFO = NO;
+MTL_FAST_MATH = YES;
+SDKROOT = iphoneos;
+SWIFT_COMPILATION_MODE = wholemodule;
+SWIFT_OPTIMIZATION_LEVEL = "-O";
+VALIDATE_PRODUCT = YES;
+};
+name = Release;
+};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+I1J2K3L42B1E2F3000123456 /* Build configuration list for PBXNativeTarget "ZCinema" */ = {
+isa = XCConfigurationList;
+buildConfigurations = (
+M1N2O3P42B1E2F3000123456 /* Debug */,
+N1O2P3Q42B1E2F3000123456 /* Release */,
+);
+defaultConfigurationIsVisible = 0;
+defaultConfigurationName = Release;
+};
+L1M2N3O42B1E2F3000123456 /* Build configuration list for PBXProject "ZCinema" */ = {
+isa = XCConfigurationList;
+buildConfigurations = (
+O1P2Q3R42B1E2F3000123456 /* Debug */,
+P1Q2R3S42B1E2F3000123456 /* Release */,
+);
+defaultConfigurationIsVisible = 0;
+defaultConfigurationName = Release;
+};
+/* End XCConfigurationList section */
+};
+rootObject = K1L2M3N42B1E2F3000123456 /* Project object */;
 }
