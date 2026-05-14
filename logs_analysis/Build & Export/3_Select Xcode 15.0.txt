@@ -1,0 +1,11 @@
+﻿2026-05-14T11:46:19.1532230Z ##[group]Run sudo xcode-select -s /Applications/Xcode_15.0.app/Contents/Developer
+2026-05-14T11:46:19.1534170Z [36;1msudo xcode-select -s /Applications/Xcode_15.0.app/Contents/Developer[0m
+2026-05-14T11:46:19.1535360Z [36;1mxcodebuild -version[0m
+2026-05-14T11:46:19.1607380Z shell: /bin/bash -e {0}
+2026-05-14T11:46:19.1608210Z env:
+2026-05-14T11:46:19.1608830Z   SCHEME: ZCinema
+2026-05-14T11:46:19.1609470Z   PROJECT: ZCinema.xcodeproj
+2026-05-14T11:46:19.1610240Z   BUNDLE_ID: com.zcinema.app
+2026-05-14T11:46:19.1610950Z ##[endgroup]
+2026-05-14T11:46:22.5221230Z Xcode 15.0.1
+2026-05-14T11:46:22.5233060Z Build version 15A507

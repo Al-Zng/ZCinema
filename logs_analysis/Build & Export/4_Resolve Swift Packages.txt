@@ -1,0 +1,35 @@
+﻿2026-05-14T11:46:22.5320120Z ##[group]Run xcodebuild -resolvePackageDependencies -project "ZCinema.xcodeproj" -scheme "ZCinema"
+2026-05-14T11:46:22.5320920Z [36;1mxcodebuild -resolvePackageDependencies -project "ZCinema.xcodeproj" -scheme "ZCinema"[0m
+2026-05-14T11:46:22.5377370Z shell: /bin/bash -e {0}
+2026-05-14T11:46:22.5377600Z env:
+2026-05-14T11:46:22.5377770Z   SCHEME: ZCinema
+2026-05-14T11:46:22.5378020Z   PROJECT: ZCinema.xcodeproj
+2026-05-14T11:46:22.5378290Z   BUNDLE_ID: com.zcinema.app
+2026-05-14T11:46:22.5378500Z ##[endgroup]
+2026-05-14T11:46:23.0785550Z Command line invocation:
+2026-05-14T11:46:23.0791850Z     /Applications/Xcode_15.0.1.app/Contents/Developer/usr/bin/xcodebuild -resolvePackageDependencies -project ZCinema.xcodeproj -scheme ZCinema
+2026-05-14T11:46:23.0792600Z 
+2026-05-14T11:46:23.0793280Z User defaults from command line:
+2026-05-14T11:46:23.0794330Z     IDEPackageSupportUseBuiltinSCM = YES
+2026-05-14T11:46:23.0794660Z 
+2026-05-14T11:46:32.4033150Z Resolve Package Graph
+2026-05-14T11:46:32.5501800Z 
+2026-05-14T11:46:32.5603070Z Fetching from https://github.com/scinfu/SwiftSoup.git
+2026-05-14T11:47:47.7222240Z skipping cache due to an error: Failed to clone repository https://github.com/scinfu/SwiftSoup.git:
+2026-05-14T11:47:47.7326150Z     Cloning into bare repository '/Users/runner/Library/Caches/org.swift.swiftpm/repositories/SwiftSoup-2b6d3352'...
+2026-05-14T11:48:17.8174440Z     fatal: unable to access 'https://github.com/scinfu/SwiftSoup.git/': Failed to connect to github.com port 443 after 75005 ms: Couldn't connect to server
+2026-05-14T11:48:17.8179380Z Fetching from https://github.com/scinfu/SwiftSoup.git
+2026-05-14T11:48:17.8180820Z 
+2026-05-14T11:48:47.8921720Z skipping cache due to an error: Failed to clone repository https://github.com/scinfu/SwiftSoup.git:
+2026-05-14T11:48:47.8924380Z     Cloning into bare repository '/Users/runner/Library/Caches/org.swift.swiftpm/repositories/SwiftSoup-2b6d3352'...
+2026-05-14T11:49:10.6830140Z     fatal: unable to access 'https://github.com/scinfu/SwiftSoup.git/': Could not resolve host: github.comUpdating from https://github.com/scinfu/SwiftSoup.git
+2026-05-14T11:49:11.2396030Z 
+2026-05-14T11:49:12.6296310Z Creating working copy of package ‘SwiftSoup’
+2026-05-14T11:49:12.6950860Z 
+2026-05-14T11:49:12.6951940Z Checking out 2.9.6 of package ‘SwiftSoup’
+2026-05-14T11:49:12.9045950Z 
+2026-05-14T11:49:13.1625700Z 
+2026-05-14T11:49:13.1626500Z Resolved source packages:
+2026-05-14T11:49:13.1628240Z   SwiftSoup: https://github.com/scinfu/SwiftSoup.git @ 2.9.6
+2026-05-14T11:49:13.1628720Z 
+2026-05-14T11:49:13.1671530Z resolved source packages: SwiftSoup
