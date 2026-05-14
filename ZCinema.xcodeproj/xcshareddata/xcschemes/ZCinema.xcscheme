@@ -62,8 +62,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "T001000000000001"
             BuildableName = "ZCinema.app"
-            BlueprintName = "ZCinema"
-            BlueprintName = "ZCinema"
+               BlueprintName = "ZCinema"
             ReferencedContainer = "container:ZCinema.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
