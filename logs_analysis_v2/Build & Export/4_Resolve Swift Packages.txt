@@ -1,0 +1,27 @@
+﻿2026-05-14T11:52:11.9496080Z ##[group]Run xcodebuild -resolvePackageDependencies -project "ZCinema.xcodeproj" -scheme "ZCinema"
+2026-05-14T11:52:11.9496750Z [36;1mxcodebuild -resolvePackageDependencies -project "ZCinema.xcodeproj" -scheme "ZCinema"[0m
+2026-05-14T11:52:11.9551400Z shell: /bin/bash -e {0}
+2026-05-14T11:52:11.9551680Z env:
+2026-05-14T11:52:11.9551880Z   SCHEME: ZCinema
+2026-05-14T11:52:11.9552120Z   PROJECT: ZCinema.xcodeproj
+2026-05-14T11:52:11.9552430Z   BUNDLE_ID: com.zcinema.app
+2026-05-14T11:52:11.9552650Z ##[endgroup]
+2026-05-14T11:52:12.6083780Z Command line invocation:
+2026-05-14T11:52:12.6280550Z     /Applications/Xcode_15.0.1.app/Contents/Developer/usr/bin/xcodebuild -resolvePackageDependencies -project ZCinema.xcodeproj -scheme ZCinema
+2026-05-14T11:52:12.6282300Z 
+2026-05-14T11:52:12.6282590Z User defaults from command line:
+2026-05-14T11:52:12.6336580Z     IDEPackageSupportUseBuiltinSCM = YES
+2026-05-14T11:52:12.6337790Z 
+2026-05-14T11:52:22.0406870Z Resolve Package Graph
+2026-05-14T11:52:22.3788380Z 
+2026-05-14T11:52:22.3891730Z Fetching from https://github.com/scinfu/SwiftSoup.git
+2026-05-14T11:52:23.8552990Z 
+2026-05-14T11:52:26.5460110Z Creating working copy of package ‘SwiftSoup’
+2026-05-14T11:52:26.5902610Z 
+2026-05-14T11:52:26.5910400Z Checking out 2.9.6 of package ‘SwiftSoup’
+2026-05-14T11:52:26.7769030Z 
+2026-05-14T11:52:27.0283600Z 
+2026-05-14T11:52:27.0284220Z Resolved source packages:
+2026-05-14T11:52:27.0285060Z   SwiftSoup: https://github.com/scinfu/SwiftSoup.git @ 2.9.6
+2026-05-14T11:52:27.0287110Z 
+2026-05-14T11:52:27.0315690Z resolved source packages: SwiftSoup

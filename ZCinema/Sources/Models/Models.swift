@@ -142,13 +142,13 @@ struct HomeSection: Identifiable {
 }
 
 // MARK: - Resolved Stream
-struct ResolvedStream {
+struct ResolvedStream: Equatable {
     var directURL: String
     var type: StreamType
     var quality: String
     var serverName: String
     
-    enum StreamType {
+    enum StreamType: Equatable {
         case mp4
         case m3u8
         case iframe
