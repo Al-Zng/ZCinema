@@ -1,3 +1,10 @@
+//
+//  StreamResolver.swift
+//  ZCinema
+//
+//  Created by User on 2025-01-01.
+//
+
 import Foundation
 
 // MARK: - Stream Resolver
@@ -32,6 +39,7 @@ actor StreamResolver {
             var best: ResolvedStream? = nil
             for await result in group {
                 guard let stream = result else { continue }
+                
                 // Prefer mp4 > m3u8 > iframe
                 switch stream.type {
                 case .mp4:
@@ -47,8 +55,11 @@ actor StreamResolver {
                         best = stream
                     }
                 }
+                
                 // If we got mp4, stop waiting
-                if best?.type == .mp4 { break }
+                if best?.type == .mp4 {
+                    break
+                }
             }
             return best
         }
@@ -57,7 +68,6 @@ actor StreamResolver {
     // MARK: - Resolve All Servers (returns array sorted by quality)
     func resolveAllStreams(from servers: [StreamServer]) async -> [ResolvedStream] {
         var results: [ResolvedStream] = []
-        
         await withTaskGroup(of: ResolvedStream?.self) { group in
             for server in servers {
                 group.addTask {
@@ -70,7 +80,6 @@ actor StreamResolver {
                 }
             }
         }
-        
         // Sort: mp4 first, then m3u8, then iframe
         return results.sorted { a, b in
             let rank: (ResolvedStream) -> Int = { s in
@@ -90,7 +99,7 @@ actor StreamResolver {
         let scraper = EgyBestScraper.shared
         
         // The encoded URL from the site is base64
-        if let decoded = scraper.decodeBase64URL(server.encodedURL) {
+        if let decoded = await scraper.decodeBase64URL(server.encodedURL) {
             // Step 2: Try to extract stream from the decoded URL
             if let stream = await extractStreamFromURL(decoded, serverName: server.name) {
                 return stream
@@ -114,127 +123,88 @@ actor StreamResolver {
         if urlString.contains(".mp4") {
             return ResolvedStream(directURL: urlString, type: .mp4, quality: "HD", serverName: serverName)
         }
+        
         if urlString.contains(".m3u8") {
             return ResolvedStream(directURL: urlString, type: .m3u8, quality: "HD", serverName: serverName)
         }
         
-        // Fetch the page
-        var request = URLRequest(url: url)
-        request.setValue("https://egibest.ws/", forHTTPHeaderField: "Referer")
-        request.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15", forHTTPHeaderField: "User-Agent")
-        
-        guard let (data, response) = try? await session.data(for: request),
-              let html = String(data: data, encoding: .utf8) else {
+        // Otherwise, fetch the page and try to extract iframe/video sources
+        do {
+            let (data, _) = try await session.data(from: url)
+            let html = String(data: data, encoding: .utf8) ?? ""
+            
+            // Look for iframe source
+            if let iframeSrc = extractIframeSource(from: html) {
+                return ResolvedStream(directURL: iframeSrc, type: .iframe, quality: "SD", serverName: serverName)
+            }
+            
+            // Look for video source (mp4/m3u8) inside the page
+            if let videoURL = extractVideoSource(from: html) {
+                let type: StreamType = videoURL.contains(".m3u8") ? .m3u8 : .mp4
+                return ResolvedStream(directURL: videoURL, type: type, quality: "HD", serverName: serverName)
+            }
+        } catch {
             return nil
-        }
-        
-        // Check final URL after redirects
-        let finalURL = (response as? HTTPURLResponse)?.url?.absoluteString ?? urlString
-        
-        // Try all extraction methods
-        return extractFromHTML(html, finalURL: finalURL, serverName: serverName)
-    }
-    
-    // MARK: - Extract from HTML Content
-    private func extractFromHTML(_ html: String, finalURL: String, serverName: String) -> ResolvedStream? {
-        // 1. Direct mp4 in source tags
-        if let url = matchRegex(#"<source[^>]+src=["']([^"']+\.mp4[^"']*)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .mp4, quality: extractQuality(from: url), serverName: serverName)
-        }
-        
-        // 2. Direct m3u8 in source tags
-        if let url = matchRegex(#"<source[^>]+src=["']([^"']+\.m3u8[^"']*)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .m3u8, quality: "HD", serverName: serverName)
-        }
-        
-        // 3. JWPlayer file config
-        if let url = matchRegex(#"file\s*:\s*["']([^"']+\.mp4[^"']*)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .mp4, quality: extractQuality(from: url), serverName: serverName)
-        }
-        if let url = matchRegex(#"file\s*:\s*["']([^"']+\.m3u8[^"']*)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .m3u8, quality: "HD", serverName: serverName)
-        }
-        
-        // 4. sources array in JS
-        if let url = matchRegex(#""file"\s*:\s*"([^"]+\.mp4[^"]*)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .mp4, quality: extractQuality(from: url), serverName: serverName)
-        }
-        if let url = matchRegex(#""file"\s*:\s*"([^"]+\.m3u8[^"]*)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .m3u8, quality: "HD", serverName: serverName)
-        }
-        
-        // 5. DoodStream pattern
-        if finalURL.contains("doodstream") || html.contains("doodstream") {
-            if let token = matchRegex(#"pass_md5/([^/'"]+)"#, in: html) {
-                let doodURL = "https://doodstream.com/pass_md5/\(token)"
-                return ResolvedStream(directURL: doodURL, type: .mp4, quality: "HD", serverName: serverName)
-            }
-        }
-        
-        // 6. Mixdrop pattern
-        if finalURL.contains("mixdrop") || html.contains("mixdrop") {
-            if let url = matchRegex(#"wurl\s*=\s*["']([^"']+)"#, in: html) {
-                let full = url.hasPrefix("//") ? "https:\(url)" : url
-                return ResolvedStream(directURL: full, type: .mp4, quality: "HD", serverName: serverName)
-            }
-            if let url = matchRegex(#"MDCore\.wurl\s*=\s*["']([^"']+)"#, in: html) {
-                let full = url.hasPrefix("//") ? "https:\(url)" : url
-                return ResolvedStream(directURL: full, type: .mp4, quality: "HD", serverName: serverName)
-            }
-        }
-        
-        // 7. Streamtape pattern
-        if finalURL.contains("streamtape") || html.contains("streamtape") {
-            if let url = matchRegex(#"document\.getElementById\([^)]+\)\.innerHTML\s*=\s*["']([^"']+)"#, in: html) {
-                return ResolvedStream(directURL: "https://streamtape.com\(url)", type: .mp4, quality: "HD", serverName: serverName)
-            }
-            // Alternative streamtape extraction
-            if let url = matchRegex(#"robotlink\)\.innerHTML = '//([^']+)'"#, in: html) {
-                return ResolvedStream(directURL: "https://\(url)", type: .mp4, quality: "HD", serverName: serverName)
-            }
-        }
-        
-        // 8. Lulustream / generic stream
-        if let url = matchRegex(#"["'](https?://[^"']+\.mp4[^"']*)"#, in: html) {
-            if !url.contains("placeholder") && !url.contains("default") {
-                return ResolvedStream(directURL: url, type: .mp4, quality: extractQuality(from: url), serverName: serverName)
-            }
-        }
-        if let url = matchRegex(#"["'](https?://[^"']+\.m3u8[^"']*)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .m3u8, quality: "HD", serverName: serverName)
-        }
-        
-        // 9. HLS source
-        if let url = matchRegex(#"hls[Ss]rc\s*[=:]\s*["']([^"']+)"#, in: html) {
-            return ResolvedStream(directURL: url, type: .m3u8, quality: "HD", serverName: serverName)
-        }
-        
-        // 10. Iframe embed as fallback
-        if let url = matchRegex(#"<iframe[^>]+src=["']([^"']+)"#, in: html) {
-            if !url.isEmpty && url != "about:blank" {
-                return ResolvedStream(directURL: url, type: .iframe, quality: "HD", serverName: serverName)
-            }
         }
         
         return nil
     }
     
-    // MARK: - Quality Extraction
-    private func extractQuality(from url: String) -> String {
-        if url.contains("1080") { return "1080p" }
-        if url.contains("720") { return "720p" }
-        if url.contains("480") { return "480p" }
-        if url.contains("360") { return "360p" }
-        return "HD"
+    private func extractIframeSource(from html: String) -> String? {
+        let pattern = #"<iframe[^>]+src=["']([^"']+)["']"#
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else { return nil }
+        let nsRange = NSRange(html.startIndex..<html.endIndex, in: html)
+        if let match = regex.firstMatch(in: html, options: [], range: nsRange),
+           let range = Range(match.range(at: 1), in: html) {
+            return String(html[range])
+        }
+        return nil
     }
     
-    // MARK: - Regex Helper
-    private func matchRegex(_ pattern: String, in text: String) -> String? {
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive, .dotMatchesLineSeparators]) else { return nil }
-        let range = NSRange(text.startIndex..., in: text)
-        guard let match = regex.firstMatch(in: text, range: range) else { return nil }
-        let captureRange = match.numberOfRanges > 1 ? match.range(at: 1) : match.range(at: 0)
-        guard let swiftRange = Range(captureRange, in: text) else { return nil }
-        return String(text[swiftRange])
+    private func extractVideoSource(from html: String) -> String? {
+        // Look for source tags
+        let sourcePattern = #"<source[^>]+src=["']([^"']+\.(mp4|m3u8))["']"#
+        if let regex = try? NSRegularExpression(pattern: sourcePattern, options: .caseInsensitive) {
+            let nsRange = NSRange(html.startIndex..<html.endIndex, in: html)
+            if let match = regex.firstMatch(in: html, options: [], range: nsRange),
+               let range = Range(match.range(at: 1), in: html) {
+                return String(html[range])
+            }
+        }
+        
+        // Look for video tag with src
+        let videoPattern = #"<video[^>]+src=["']([^"']+\.(mp4|m3u8))["']"#
+        if let regex = try? NSRegularExpression(pattern: videoPattern, options: .caseInsensitive) {
+            let nsRange = NSRange(html.startIndex..<html.endIndex, in: html)
+            if let match = regex.firstMatch(in: html, options: [], range: nsRange),
+               let range = Range(match.range(at: 1), in: html) {
+                return String(html[range])
+            }
+        }
+        
+        return nil
     }
+}
+
+// MARK: - Supporting Types
+enum StreamType {
+    case mp4
+    case m3u8
+    case iframe
+}
+
+struct ResolvedStream {
+    let directURL: String
+    let type: StreamType
+    let quality: String
+    let serverName: String
+}
+
+struct StreamServer {
+    let name: String
+    let encodedURL: String
+}
+
+enum ScraperError: Error {
+    case noStreamFound
 }
