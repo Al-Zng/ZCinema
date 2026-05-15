@@ -1,63 +1,138 @@
-# ZCinema - Netflix-inspired Movie & Series Streaming App
+# ZCinema
 
-ZCinema is a full-featured iOS streaming application that scrapes content from egibest.ws and provides a native Netflix-like experience with AMOLED black theme, professional video player, episode/season management, and direct video extraction from popular streaming servers.
+تطبيق iOS احترافي لمشاهدة الأفلام والمسلسلات والانمي.
 
-## Features
+---
 
-- **Beautiful UI/UX** – Netflix-inspired dark/AMOLED theme with smooth animations
-- **Dynamic Content Scraping** – Parses egibest.ws for movies, series, and anime
-- **Professional Media Player** – AVPlayer-based with custom controls
-- **Episode & Season Management** – For TV series with automatic episode listing
-- **Multi-Server Support** – Extracts direct video URLs from Doodstream, Mixdrop, Streamtape, Cybervynx, Lulustream
-- **Server Selection** – Choose between available streaming servers
-- **Download Links** – Direct download support for offline viewing
-- **Async/Await** – Modern Swift concurrency for smooth performance
+## المميزات
 
-## Requirements
+- واجهة داكنة بتصميم Netflix
+- تصفح الأفلام والمسلسلات والانمي
+- بحث فوري
+- مشغل فيديو احترافي داخلي (AVPlayer)
+- استخراج تلقائي لروابط mp4/m3u8 من جميع السيرفرات
+- نظام حلقات ومواسم
+- شريط تقدم قابل للسحب
+- تخطي 10 ثواني للأمام والخلف
+- التنقل بين الحلقات من داخل المشغل
+- دعم الوضع الأفقي والعمودي
 
-- iOS 17.0+
-- Xcode 15.4+
-- Swift 5.9+
+---
 
-## Installation
+## هيكل المشروع
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Al-Zng/ZCinema.git
-cd ZCinema
+```
+ZCinema/
+├── ZCinema.xcodeproj/
+│   ├── project.pbxproj
+│   └── xcshareddata/xcschemes/ZCinema.xcscheme
+├── ZCinema/
+│   ├── Sources/
+│   │   ├── App/
+│   │   │   ├── ZCinemaApp.swift
+│   │   │   └── ContentView.swift
+│   │   ├── Models/
+│   │   │   └── Models.swift
+│   │   ├── Services/
+│   │   │   ├── EgyBestScraper.swift   ← HTML scraping engine
+│   │   │   └── StreamResolver.swift   ← Auto mp4/m3u8 extractor
+│   │   ├── ViewModels/
+│   │   │   └── ViewModels.swift
+│   │   ├── Views/
+│   │   │   ├── Home/
+│   │   │   │   ├── HomeView.swift
+│   │   │   │   ├── MediaListViews.swift
+│   │   │   │   └── SearchView.swift
+│   │   │   ├── Detail/
+│   │   │   │   └── DetailView.swift
+│   │   │   ├── Player/
+│   │   │   │   └── PlayerView.swift   ← Professional AVPlayer
+│   │   │   └── Components/
+│   │   │       └── MediaCard.swift
+│   │   └── Utils/
+│   │       ├── ThemeManager.swift
+│   │       └── ImageLoader.swift
+│   └── Resources/
+│       ├── Info.plist
+│       └── Assets.xcassets/
+├── .github/workflows/
+│   └── build.yml                      ← GitHub Actions CI/CD
+└── Package.swift
 ```
 
-2. Open ZCinema.xcodeproj in Xcode.
-3. Build and run on simulator or device (requires iOS 17+).
+---
 
-Architecture
+## كيفية البناء
 
-· SwiftUI – Declarative UI framework
-· AVFoundation/AVKit – Native video playback
-· WebKit – Embedded extraction of video streams (fallback)
-· URLSession – HTML scraping and data fetching
-· Combine & Async/Await – Reactive data flow
+### محلياً (Xcode)
 
-Scraping & Extraction
+1. افتح `ZCinema.xcodeproj` في Xcode 15+
+2. اختر الـ Target Device
+3. اضغط `Cmd+R` للتشغيل
 
-The app dynamically parses the target website's HTML structure:
+Xcode سيقوم تلقائياً بتحميل SwiftSoup عند أول فتح للمشروع.
 
-· Homepage sections (latest movies, series, anime)
-· Content details (title, description, genres, cast, rating)
-· Episode lists for series
-· Video server URLs from embed/direct links
+### عبر GitHub Actions
 
-Video extraction uses URLSession with custom headers and JavaScript evaluation via WebKit for dynamic pages.
+#### IPA بدون توقيع (للتثبيت عبر AltStore/Sideloadly)
 
-Legal Disclaimer
+1. ارفع المشروع على GitHub
+2. اضغط على **Actions** → **Build ZCinema IPA** → **Run workflow**
+3. بعد اكتمال البناء، حمّل الـ IPA من **Artifacts**
+4. ثبّته عبر **AltStore** أو **Sideloadly** أو **TrollStore**
 
-This application is for educational purposes only. It does not host any copyrighted content. All media is streamed from third-party servers. Users are responsible for complying with local copyright laws.
+#### IPA موقع (للتوزيع)
 
-Credits
+أضف هذه الـ Secrets في إعدادات الـ Repo:
 
-· Icons: SF Symbols, FontAwesome
-· Scraping patterns derived from egibest.ws HTML structure
+| Secret | الوصف |
+|--------|-------|
+| `CERTIFICATE_BASE64` | شهادة p12 مُشفّرة بـ base64 |
+| `CERTIFICATE_PASSWORD` | كلمة سر الشهادة |
+| `PROVISIONING_PROFILE_BASE64` | Provisioning Profile مُشفّر بـ base64 |
+| `KEYCHAIN_PASSWORD` | أي كلمة سر مؤقتة للـ Keychain |
+| `TEAM_ID` | Apple Developer Team ID |
 
-License
+---
 
-MIT License – see LICENSE file.
+## كيف يعمل استخراج الروابط
+
+```
+المستخدم يضغط تشغيل
+        ↓
+DetailViewModel.fetchEpisodeDetail()
+        ↓
+EgyBestScraper.fetchMediaDetail() → يجلب صفحة الحلقة ويستخرج السيرفرات
+        ↓
+StreamResolver.resolveBestStream() → يفحص كل السيرفرات بالتوازي
+        ↓
+لكل سيرفر:
+  1. فك تشفير base64 URL
+  2. جلب صفحة السيرفر
+  3. البحث عن mp4/m3u8/HLS
+  4. أنماط مدعومة:
+     - CyberVynx / DoodStream / Mixdrop
+     - Streamtape / Lulustream
+     - JWPlayer / HLS أي مشغل
+        ↓
+أفضل رابط (mp4 > m3u8 > iframe)
+        ↓
+AVPlayer يشغل الرابط مباشرة
+```
+
+---
+
+## المتطلبات
+
+- Xcode 15.0+
+- iOS 16.0+
+- Swift 5.9+
+- [SwiftSoup](https://github.com/scinfu/SwiftSoup) (يُحمَّل تلقائياً)
+
+---
+
+## ملاحظات
+
+- التطبيق يستخدم `NSAllowsArbitraryLoads = true` للوصول لروابط HTTP
+- يدعم تشغيل الصوت في الخلفية (`UIBackgroundModes: audio`)
+- الشاشة لا تُغلَق أثناء التشغيل (`isIdleTimerDisabled = true`)
