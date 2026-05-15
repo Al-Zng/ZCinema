@@ -1,19 +1,43 @@
 # Xcode
-*.xcworkspace/xcuserdata/
-*.xcodeproj/xcuserdata/
-DerivedData/
-*.ipa
-*.xcarchive
-build/
-
-# SPM
-.build/
-.swiftpm/
-
-# macOS
 .DS_Store
-*.swp
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.xcuserstate
+*.xcscmblueprint
+*.xcconfig
 
-# Secrets
-*.p12
-*.mobileprovision
+# Swift Package Manager
+.build/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# iOS
+*.app
+*.framework
+*.dSYM
+*.log
+*.profraw

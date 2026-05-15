@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "1530"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "T001000000000001"
+               BlueprintIdentifier = "1A2B3C4D5E6F7A8B9C45"
                BuildableName = "ZCinema.app"
                BlueprintName = "ZCinema"
                ReferencedContainer = "container:ZCinema.xcodeproj">
@@ -26,8 +26,9 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -43,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "T001000000000001"
+            BlueprintIdentifier = "1A2B3C4D5E6F7A8B9C45"
             BuildableName = "ZCinema.app"
             BlueprintName = "ZCinema"
             ReferencedContainer = "container:ZCinema.xcodeproj">
@@ -60,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "T001000000000001"
+            BlueprintIdentifier = "1A2B3C4D5E6F7A8B9C45"
             BuildableName = "ZCinema.app"
-               BlueprintName = "ZCinema"
+            BlueprintName = "ZCinema"
             ReferencedContainer = "container:ZCinema.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
